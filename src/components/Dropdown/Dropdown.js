@@ -7,18 +7,24 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import styles from './Dropdown.module.css';
 
-export default function Question(props) {
-    const [data, getData] = useState([]);
-    const [chosenGuest, setChosenGuest] = useState('');
+export default class Question extends React.Component{
+    constructor(props){
+      super(props);
 
+      this.state = {
+        data: [],
+        chosenGuest: '',
+        celebs: ['Neil Degrasse Tyson', 'Sam Harris', 'Jocko Willink']
+        
+      }
+
+      this.handleChange=this.handleChange.bind(this);
+    }
   
-    handleChange(event){
-        this.setState({chosenGuest: event.target.value});
-    };
+    handleChange(e){
+        this.setState({[e.target.name]: e.target.value});
+    }
 
-    const handleChange = event => {
-      setChosenGuest(event.target.value);
-    };
 
     // axios.get('/listenAPIbullshit', req, res){
     //     req.data = (
@@ -26,12 +32,9 @@ export default function Question(props) {
     //         let celebs = data.sort();
     //         getCelebs(celebs);
     //     )
-    // }
-
-    const celebs = ['Neil Degrasse Tyson', 'Sam Harris', 'Jocko Willink']
-    let celebsSorted = celebs.sort();
     
-
+  render(){
+  const { celebs, chosenGuest } = this.state;
   return (
       <div className={styles.container}>
       <FormControl>
@@ -40,15 +43,16 @@ export default function Question(props) {
           labelId='demo-simple-select-helper-label'
           id='demo-simple-select-helper'
           value={chosenGuest}
-          onChange={handleChange}
+          onChange={this.handleChange}
+          name='chosenGuest'
         >
-          <MenuItem value={celebsSorted[0]}>{celebsSorted[0]}</MenuItem>
-          <MenuItem value={celebsSorted[1]}>{celebsSorted[1]}</MenuItem>
-          <MenuItem value={celebsSorted[2]}>{celebsSorted[2]}</MenuItem>
+          <MenuItem value={celebs[0]}>{celebs[0]}</MenuItem>
+          <MenuItem value={celebs[1]}>{celebs[1]}</MenuItem>
+          <MenuItem value={celebs[2]}>{celebs[2]}</MenuItem>
         </Select>
         <FormHelperText>Choose the guest you're looking for.</FormHelperText>
       </FormControl>
       </div>
     )
-};
-
+}
+}
