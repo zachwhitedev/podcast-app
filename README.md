@@ -3,5 +3,3 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ## Podcast App
 
 An app about podcasts... just wait and see ok?
-
-
