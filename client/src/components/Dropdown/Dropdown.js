@@ -12,7 +12,7 @@ export default class Question extends Component {
   state = {
     data: [],
     chosenGuest: '',
-    celebs: ['Neil Degrasse Tyson', 'Theo Von', 'Jocko Willink']
+    celebs: ['Neil Degrasse Tyson', 'Sam', 'Jocko Willink']
   };
 
   handleChange = e => {
@@ -21,6 +21,11 @@ export default class Question extends Component {
     //   res => this.setState({ data: res.data })
     // }
   };
+
+  componentDidMount () {
+    axios.get( 'https://jsonplaceholder.typicode.com/posts' )
+      .then( reponse =>)
+  }
 
   render() {
     const { celebs, chosenGuest } = this.state;
