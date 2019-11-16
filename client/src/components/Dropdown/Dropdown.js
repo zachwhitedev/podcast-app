@@ -12,7 +12,7 @@ export default class Question extends Component {
   state = {
     data: [],
     chosenGuest: '',
-    celebs: ['Neil Degrasse Tyson', 'Sam Harris', 'Jocko Willink']
+    celebs: ['Neil Degrasse Tyson', 'Theo Von', 'Jocko Willink']
   };
 
   handleChange = e => {
