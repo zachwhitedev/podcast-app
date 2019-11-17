@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import EpisodeList from '../EpisodeList/EpisodeList';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import styles from './Dropdown.module.css';
+import podcastmock from '../../podcastmock';
 
 export default class Question extends Component {
 
   state = {
-    data: [],
+    podcastmock: [],
     chosenGuest: '',
-    celebs: ['Neil Degrasse Tyson', 'Sam', 'Jocko Willink']
+    celebs: ['David Goggins', 'Sam Harris', 'Jocko Willink', 'Chris D\'Elia', 'Bryan Callen']
   };
 
   handleChange = e => {
@@ -23,12 +25,26 @@ export default class Question extends Component {
   };
 
   componentDidMount () {
-    axios.get( 'https://jsonplaceholder.typicode.com/posts' )
-      .then( reponse =>)
+    // axios.get( `https://listen-api.listennotes.com/api/v2/search/${this.state.chosenGuest}` )
+    //   .then( response => {
+    //     this.setState({data: response.data});
+    //   });
+    
+    this.setState({podcastmock: podcastmock});
+  };
+
+  componentDidUpdate () {
+    console.log(this.state.podcastmock);
   }
 
   render() {
     const { celebs, chosenGuest } = this.state;
+
+    const dropdownNames = this.state.celebs.map(celebName => {
+      return (
+        <MenuItem value={celebName}>{celebName}</MenuItem>
+      );
+    });
 
     return (
       <div className={styles.container}>
@@ -43,13 +59,12 @@ export default class Question extends Component {
             onChange={this.handleChange}
             name='chosenGuest'
           >
-            <MenuItem value={celebs[0]}>{celebs[0]}</MenuItem>
-            <MenuItem value={celebs[1]}>{celebs[1]}</MenuItem>
-            <MenuItem value={celebs[2]}>{celebs[2]}</MenuItem>
+            {dropdownNames}
           </Select>
           <FormHelperText>Choose the guest you're looking for.</FormHelperText>
         </FormControl>
+        <EpisodeList episodes={this.state.podcastmock} />
       </div>
-    );
+    )
   }
 }
